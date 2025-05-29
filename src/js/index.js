@@ -1,47 +1,62 @@
-// Datos iniciales de libros en formato JSON
-let biblioteca = {
-    "libros": [
-        { "titulo": "Cien años de soledad", "autor": "Gabriel García Márquez", "genero": "Realismo mágico", "disponible": true },
-        { "titulo": "1984", "autor": "George Orwell", "genero": "Distopía", "disponible": true }
+let library = {
+    "books": [
+        { 
+            "title": "Cien años de soledad",
+            "author": "Gabriel García Márquez", 
+            "genre": "Realismo mágico", 
+            "availability": true 
+        },
+        { 
+            "title": "1984", 
+            "author": "George Orwell", 
+            "genre": "Distopía", 
+            "availability": true 
+        }
     ]
 };
 
-// Función para simular la lectura de datos (asimilar la lectura de un archivo JSON)
-function leerDatos(callback) {
+
+function readData(callback) {
     setTimeout(() => {
-        // Aquí simulas leer el JSON con un retraso de 1 segundo
-        callback(biblioteca);
+
+        callback(library);
     }, 1000);
 }
 
-// Función para mostrar todos los libros en consola
-function mostrarLibros() {
-    leerDatos((datos) => {
-        console.log("Inventario de libros:");
-        datos.libros.forEach((libro, index) => {
-            console.log(`${index + 1}. ${libro.titulo} - ${libro.autor} (${libro.disponible ? 'Disponible' : 'Prestado'})`);
+
+function showBooks() {
+    readData((data) => {
+        console.log("Books list:");
+        data.books.forEach((book, index) => {
+            console.log(`${index + 1}. ${book.title} - ${book.author} (${book.availability ? 'Available' : 'Borrowed'})`);
         });
     });
 }
 
-// Función para agregar un nuevo libro
-function agregarLibro(titulo, autor, genero, disponible) {
-    const nuevoLibro = { titulo, autor, genero, disponible };
-    // Aquí falta la simulación de escribir el libro en el "archivo" (es decir, agregarlo al objeto)
+
+function addBook(title, author, genre, availability) {
+    const newBook = { title, author, genre, availability };
     setTimeout(() => {
-        // Pista: deberías agregar el nuevo libro a `biblioteca.libros`
+        library.books.push(
+            { 
+            "title": title || null,
+            "author": author || null, 
+            "genre": genre || null, 
+            "availability": availability || null 
+        }
+        )
     }, 1000);
 }
 
-// Función para cambiar la disponibilidad de un libro
-function actualizarDisponibilidad(titulo, nuevoEstado) {
-    // Simula un retraso antes de actualizar la disponibilidad
+function updateAvailability(title, availability) {
     setTimeout(() => {
-        // Pista: busca el libro por título y cambia la propiedad 'disponible' a nuevoEstado
+        library.books.forEach(book=>{
+            if (title===book.title) book.availability = availability;
+        })
     }, 1000);
 }
 
-// Ejemplo de cómo ejecutar la aplicación
-mostrarLibros();
-agregarLibro("El principito", "Antoine de Saint-Exupéry", "Fábula", true);
-actualizarDisponibilidad("1984", false);
+showBooks();
+addBook("El principito", "Antoine de Saint-Exupéry", "Fábula", true);
+updateAvailability("1984", false);
+showBooks();

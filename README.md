@@ -1,6 +1,6 @@
 # Callbacks and JSON 
 
-This SPA executes and demonstrates the usage of asynchronicity and event loop.
+This SPA executes and demonstrates the usage of callbacks functions and the management of JSON files.
 
 ## Commits Hashes
 
